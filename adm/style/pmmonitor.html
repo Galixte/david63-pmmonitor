@@ -10,13 +10,11 @@
 <form id="pm_monitor" method="post" action="{U_ACTION}">
 
 <div class="pagination">
-	{% if pagination or TOTAL_USERS %}
-   		[ {{ lang('MSG_COUNT') }} {{ lang('COLON') }} {MESSAGE_COUNT} ]
-		{% if pagination %}
-			&bull; {% include 'pagination.html' %}
-		{% else %}
-			&bull; {PAGE_NUMBER}
-		{% endif %}
+	[ {{ lang('MSG_COUNT') }} {{ lang('COLON') }} {MESSAGE_COUNT} ]
+	{% if pagination %}
+		&bull; {% include 'pagination.html' %}
+	{% else %}
+		&bull; {PAGE_NUMBER}
 	{% endif %}
 </div>
 
@@ -41,28 +39,28 @@
 	</thead>
 
 	<tbody>
-		<!-- BEGIN pm_row -->
-			<!-- IF pm_row.S_ROW_COUNT is even --><tr class="row1"><!-- ELSE --><tr class="row2">{% endif %}
-				<td style="text-align: center;"><input type="checkbox" class="radio" name="mark[]" value="{pm_row.PM_ID}" /></td>
-				<!-- IF S_CAN_READ -->
-					<td class="cursor" onclick="ShowHide('{pm_row.PM_KEY}')">{pm_row.PM_SUBJECT}</td>
-				<!-- ELSE -->
-					<td>{pm_row.PM_SUBJECT}</td>
+		{% for pm in pm_row %}
+			{% if pm.S_ROW_COUNT is even %}<tr class="row1">{% else %}<tr class="row2">{% endif %}
+				<td style="text-align: center;"><input type="checkbox" class="radio" name="mark[]" value="{pm.PM_ID}" /></td>
+				{% if S_CAN_READ %}
+					<td class="cursor" onclick="ShowHide('{pm.PM_KEY}')">{pm.PM_SUBJECT}</td>
+				{% else %}
+					<td>{pm.PM_SUBJECT}</td>
 				{% endif %}
-				<td>{pm_row.FROM}<br />{pm_row.LAST_VISIT_FROM}</td>
-				<td>{pm_row.TO}<br />{pm_row.LAST_VISIT_TO}</td>
-				<td>{pm_row.BCC}</td>
-				<td>{pm_row.IS_GROUP}</td>
-				<td>{pm_row.FOLDER}</td>
-				<td>{pm_row.AUTHOR_IP}</td>
-				<td>{pm_row.DATE}</td>
+				<td>{pm.FROM}<br />{pm.LAST_VISIT_FROM}</td>
+				<td>{pm.TO}<br />{pm.LAST_VISIT_TO}</td>
+				<td>{pm.BCC}</td>
+				<td>{pm.IS_GROUP}</td>
+				<td>{pm.FOLDER}</td>
+				<td>{pm.AUTHOR_IP}</td>
+				<td>{pm.DATE}</td>
 			</tr>
 
-			<tr class="row3" id="{pm_row.PM_KEY}" style="display: none;">
+			<tr class="row3" id="{pm.PM_KEY}" style="display: none;">
 				<td>&nbsp;</td>
-				<td colspan="8" class="content">{pm_row.PM_TEXT}</td>
+				<td colspan="8" class="content">{pm.PM_TEXT}</td>
 			</tr>
-		<!-- END pm_row -->
+		{% endfor %}
 	</tbody>
 </table>
 

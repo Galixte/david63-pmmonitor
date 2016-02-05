@@ -29,11 +29,11 @@ class admin_controller implements admin_interface
 	/** @var \phpbb\template\template */
 	protected $template;
 
+	/** @var \phpbb\pagination */
+	protected $pagination;
+
 	/** @var \phpbb\user */
 	protected $user;
-
-	/** @var ContainerInterface */
-	protected $container;
 
 	/** @var \phpbb\auth\auth */
 	protected $auth;
@@ -57,24 +57,24 @@ class admin_controller implements admin_interface
 	* @param \phpbb\db\driver\driver_interface	$db
 	* @param \phpbb\request\request				$request	Request object
 	* @param \phpbb\template\template			$template	Template object
+	* @param \phpbb\pagination					$pagination
 	* @param \phpbb\user						$user		User object
-	* @param ContainerInterface					$container	Service container interface
 	* @param \phpbb\auth\auth 					$auth
 	* @param string 							$root_path
 	* @param string 							$php_ext
 	* @param phpbb\language\language			$language
 	*
-	* @return \david63\compmmonitor\controller\admin_controller
+	* @return \david63\pmmonitor\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\user $user, ContainerInterface $container, \phpbb\auth\auth $auth, $root_path, $php_ext, \phpbb\language\language $language)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\pagination $pagination, \phpbb\user $user, \phpbb\auth\auth $auth, $root_path, $php_ext, \phpbb\language\language $language)
 	{
 		$this->config			= $config;
 		$this->db  				= $db;
 		$this->request			= $request;
 		$this->template			= $template;
+		$this->pagination		= $pagination;
 		$this->user				= $user;
-		$this->container		= $container;
 		$this->auth				= $auth;
 		$this->phpbb_root_path	= $root_path;
 		$this->phpEx			= $php_ext;
@@ -242,8 +242,7 @@ class admin_controller implements admin_interface
 
 		$action = $this->u_action . '&amp;sk=' . $sort_key . '&amp;sd=' . $sd;
 
-		$pagination = $this->container->get('pagination');
-		$pagination->generate_template_pagination($action, 'pagination', 'start', $total_msg, $this->config['topics_per_page'], $start);
+		$this->pagination->generate_template_pagination($action, 'pagination', 'start', $total_msg, $this->config['topics_per_page'], $start);
 
 		$this->template->assign_vars(array(
 			'MESSAGE_COUNT'			=> $total_msg,

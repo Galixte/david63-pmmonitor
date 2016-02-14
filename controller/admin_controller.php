@@ -246,7 +246,6 @@ class admin_controller implements admin_interface
 
 		$this->template->assign_vars(array(
 			'MESSAGE_COUNT'			=> $total_msg,
-			'PM_MONITOR_PAGE'		=> true,
 			'PM_MONITOR_VERSION'	=> ext::PM_MONITOR_VERSION,
 			'S_CAN_READ'			=> ($this->auth->acl_get('a_comms_pm_manage')) ? true : false,
 			'S_SORT_KEY'			=> $s_sort_key,

@@ -89,7 +89,7 @@ class admin_controller implements admin_interface
 	*/
 	public function display_output()
 	{
-		// Add the lanuage file
+		// Add the language file
 		$this->language->add_lang('acp_pmmonitor', 'david63/pmmonitor');
 
 		// Check that the user has permission to access here

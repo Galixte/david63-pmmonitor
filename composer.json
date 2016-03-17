@@ -2,7 +2,6 @@
 	"name": "david63/pmmonitor",
 	"type": "phpbb-extension",
 	"description": "Adds an Admin option to display a list of PMs.",
-	"homepage": "",
 	"version": "2.1.0",
 	"time": "2015-05-26",
 	"keywords": [
@@ -15,8 +14,6 @@
 	"authors": [{
 			"name": "David Wood",
 			"username": "david63",
-			"email": "",
-			"homepage": "",
 			"role": "Developer"
 		}],
 	"require": {
@@ -26,7 +23,7 @@
 	"extra": {
 		"display-name": "PM monitor",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.2.0@dev,<3.3.0@dev"
+			"phpbb/phpbb": ">=3.2.0-a1"
       }
 	}
 }

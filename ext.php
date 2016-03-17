@@ -24,6 +24,15 @@ class ext extends \phpbb\extension\base
 	public function is_enableable()
 	{
 		$config = $this->container->get('config');
-		return phpbb_version_compare($config['version'], '3.2.0-a1', '>=');
+
+		if (!phpbb_version_compare($config['version'], '3.2.0-a1', '>='))
+		{
+			$this->container->get('language')->add_lang('ext_pmmonitor', 'david63/pmmonitor');
+			trigger_error($this->container->get('language')->lang('VERSION_32') . adm_back_link(append_sid('index.' . $this->container->getParameter('core.php_ext'), 'i=acp_extensions&amp;mode=main')), E_USER_WARNING);
+		}
+		else
+		{
+			return true;
+		}
 	}
 }

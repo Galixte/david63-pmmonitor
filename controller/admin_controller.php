@@ -129,11 +129,11 @@ class admin_controller implements admin_interface
 			if (confirm_box(true))
 			{
 				// Restore the array to its correct format
-				$pm_monitor_list = str_replace('#', '"', $pm_monitor_list);
+				$pm_monitor_list = str_replace("'", '"', $pm_monitor_list);
 
 				foreach ($pm_monitor_list as $pm_msg_list)
 				{
-					$pm_list[] = unserialize($pm_msg_list);
+					$pm_list[] = json_decode($pm_msg_list);
 				}
 
 				if (!function_exists('delete_pm'))
@@ -223,8 +223,8 @@ class admin_controller implements admin_interface
 				'IS_GROUP'				=> (strstr($row['to_address'], 'g')) ? $this->language->lang('IS_GROUP') : '',
 				'LAST_VISIT_FROM'		=> $this->get_last_visit($row['author_id']),
 				'LAST_VISIT_TO'			=> ($row['to_address']) ? $this->get_last_visit($row['user_id'], $row['author_id']) : '',
-				// We have to replace " in this variable because the template system will not parse it.
-				'PM_ID'					=> str_replace('"', '#', serialize(array('msg_ids' => $row['msg_id'], 'user_id' => $row['user_id'], 'folder_id' => $row['folder_id']))),
+				// Swapping ' for "is needed as request does not handle double quotes
+				'PM_ID'					=> str_replace('"', "'", json_encode(array('msg_ids' => $row['msg_id'], 'user_id' => $row['user_id'], 'folder_id' => $row['folder_id']))),
 				// Create a unique key for the js script
 				'PM_KEY'				=> $row['msg_id'] . $row['user_id'],
 				'PM_SUBJECT'			=> $row['message_subject'],

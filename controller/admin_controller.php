@@ -47,6 +47,9 @@ class admin_controller implements admin_interface
 	/** @var phpbb\language\language */
 	protected $language;
 
+	/** @var \phpbb\log\log */
+	protected $log;
+
 	/** @var string Custom form action */
 	protected $u_action;
 
@@ -63,11 +66,12 @@ class admin_controller implements admin_interface
 	* @param string 							$root_path
 	* @param string 							$php_ext
 	* @param phpbb\language\language			$language
+	* @param \phpbb\log\log						$log
 	*
 	* @return \david63\pmmonitor\controller\admin_controller
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\pagination $pagination, \phpbb\user $user, \phpbb\auth\auth $auth, $root_path, $php_ext, \phpbb\language\language $language)
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\request\request $request, \phpbb\template\template $template, \phpbb\pagination $pagination, \phpbb\user $user, \phpbb\auth\auth $auth, $root_path, $php_ext, \phpbb\language\language $language, \phpbb\log\log $log)
 	{
 		$this->config			= $config;
 		$this->db  				= $db;
@@ -79,6 +83,7 @@ class admin_controller implements admin_interface
 		$this->phpbb_root_path	= $root_path;
 		$this->phpEx			= $php_ext;
 		$this->language			= $language;
+		$this->log				= $log;
 	}
 
 	/**
@@ -147,8 +152,7 @@ class admin_controller implements admin_interface
 				}
 
 				// Add option settings change action to the admin log
-				$phpbb_log = $this->container->get('log');
-				$phpbb_log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_PM_MONITOR');
+				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_PM_MONITOR');
 			}
 			else
 			{
@@ -223,7 +227,7 @@ class admin_controller implements admin_interface
 				'IS_GROUP'				=> (strstr($row['to_address'], 'g')) ? $this->language->lang('IS_GROUP') : '',
 				'LAST_VISIT_FROM'		=> $this->get_last_visit($row['author_id']),
 				'LAST_VISIT_TO'			=> ($row['to_address']) ? $this->get_last_visit($row['user_id'], $row['author_id']) : '',
-				// Swapping ' for "is needed as request does not handle double quotes
+				// Swapping ' for " is needed as request does not handle double quotes
 				'PM_ID'					=> str_replace('"', "'", json_encode(array('msg_ids' => $row['msg_id'], 'user_id' => $row['user_id'], 'folder_id' => $row['folder_id']))),
 				// Create a unique key for the js script
 				'PM_KEY'				=> $row['msg_id'] . $row['user_id'],

@@ -65,4 +65,6 @@ $lang = array_merge($lang, array(
 	'SORT_FROM'					=> 'From',
 	'SORT_PM_BOX'				=> 'PM box',
 	'SORT_TO'					=> 'To',
+
+	'VERSION'					=> 'Version',
 ));

@@ -214,3 +214,22 @@ dl.thumbnail dt a:hover {
 dl.thumbnail dt a:hover img {
 	border: 1px solid #d2d2d2;
 }
+
+.version {
+		border-radius: 15px;
+	font-size: 1.00em;
+		color: #000000;
+	font-weight: bold;
+		background: #3EED0E;
+	text-align: center;
+	display: inline-block;
+	width: 50px;
+}
+
+.version_name{
+	font-size: 1.00em;
+	text-align: left;
+	font-weight: bold;
+	color: #4A5A73;
+	margin: 10px
+}

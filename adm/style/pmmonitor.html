@@ -4,8 +4,8 @@
 <a name="maincontent"></a>
 
 <h1>{{ lang('PM_MONITOR_READ') }}</h1>
-{PM_MONITOR_VERSION}<br /><br />
 <p>{{ lang('PM_MONITOR_READ_EXPLAIN') }}</p>
+<span class="version_name">{{ lang('VERSION') }}{{ lang('COLON') }}</span><span class="version">{PM_MONITOR_VERSION}</span>
 <hr />
 
 <form id="pm_monitor" method="post" action="{U_ACTION}">
@@ -28,14 +28,14 @@
 	<thead>
 		<tr>
 			<th style="width: 6%;">{{ lang('MARK') }}</th>
-			<th style="width: 16%;">{{ lang('SUBJECT') }}</th>
-			<th style="width: 16%;">{{ lang('SORT_FROM') }}</th>
-			<th style="width: 15%;">{{ lang('TO') }}</th>
+			<th style="width: 15%;">{{ lang('SUBJECT') }}</th>
+			<th style="width: 15%;">{{ lang('SORT_FROM') }}</th>
+			<th style="width: 14%;">{{ lang('SORT_TO') }}</th>
 			<th style="width: 11%;">{{ lang('BCC') }}</th>
-			<th style="width: 1%;">&nbsp;</th>
+			<th style="width: 9%;">{{ lang('IS_GROUP') }}</th>
 			<th style="width: 9%;">{{ lang('PM_BOX') }}</th>
-			<th style="width: 14%;">{{ lang('AUTHOR_IP') }}</th>
-			<th style="width: 12%;">{{ lang('DATE') }}</th>
+			<th style="width: 10%;">{{ lang('AUTHOR_IP') }}</th>
+			<th style="width: 10%;">{{ lang('DATE') }}</th>
 		</tr>
 	</thead>
 
